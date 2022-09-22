@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+   
+</head>
+
+<body style=" background-image: url({% static 'images/login.jpg' %});">
+    
+	<form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+		<div class="title neonText">Login</div>
+		<input type="text" placeholder="Email/username"  name="username" class="user-input">
+		<input type="password" placeholder="Password"  name="password" class="user-input">
+
+        {% if e_msg %}
+        <div class="alert alert-danger" role="alert">
+            {{e_msg}}
+        </div>
+        {% endif %}
+
+		<input type="submit" value="Login" class="submit-button">
+	</form>
+</body>
+
+</html>

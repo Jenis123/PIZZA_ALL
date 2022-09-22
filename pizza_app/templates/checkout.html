@@ -1,0 +1,133 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>chekout</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/chekout.css' %}">
+    <script>
+
+        function increment(root,price,id) {
+            var result = parseInt(document.getElementById(root).value);
+            data = result +1 
+            console.log(id)
+
+            document.getElementById(root).value = data;
+
+            sum = data * price
+            console.log(sum)
+            id_oi  = 'price'+id
+            console.log(id_oi)
+            document.getElementById(id_oi).innerHTML = sum;
+            //document.getElementById("total").innerHTML = sum;
+            
+        }
+        function decrement(root,price,id) {
+            var result = parseInt(document.getElementById(root).value);
+           
+            data = result -1 
+
+            if (data < 1) {
+                pass
+              } 
+
+            
+            console.log(id)
+
+            document.getElementById(root).value = data;
+
+            sum = data * price
+            console.log(sum)
+            id_oi  = 'price'+id
+            console.log(id_oi)
+            document.getElementById(id_oi).innerHTML = sum;
+           // document.getElementById("total").innerHTML = sum;
+        }  
+    </script>
+</head>
+
+<body onload="decrement(root,price,id)">
+    <nav class="navbar" style="background-color: lightblue;
+					opacity: 0.7;">
+	
+			<a  class="btn btn-danger" href="{% url 'customer_wlc' %}">Home</a>
+            <a style="margin-left: 900px;" class="btn btn-danger" href="{% url 'logout' %}">logout</a>
+						
+	</nav>
+    <div class="container-fluid mt-5">
+       
+        <h2 class="mb-5 text-center" style="font-size: 45px; font-weight: 700;"> Cart</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="table-responsive">
+                <form action="{% url 'order' %}" method="POST" >
+                {% csrf_token %}
+                   
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                                <th class="text-right"><span id="amount" class="amount">Amount</span> </th>
+                            </tr>
+                        </thead>
+                        {% for i in carts %}
+                        <tbody>
+                            
+                           
+                            <tr>
+                                <td>
+                                    <div class="product-img">
+                                        <div class="img-prdct">
+                                            <img src="{% static 'images/' %}{{i.menu_id.pizza_image}}"></div>
+                                    </div>
+                                </td>
+                                    <td><span name="pizzaname"   value = "{{i.menu_id.pizza_name}}">{{i.menu_id.pizza_name}}</span></td> 
+                                </td>
+                                <td>
+                                    <div class="button-container">
+                                        <a href="{%  url 'decrement' i.id %}"><button  onclick="decrement('root{{ i.id }}',{{i.menu_id.pizza_price}},{{i.id}})"  class="cart-qty-minus" type="button" value="-">-</button></a>
+                                        <input type="text" min="1" name="quantity" id = "root{{ i.id }}" value="{{i.quantity}}" class="qty form-control" value="1"  disabled/>
+                                        <a href="{%  url 'increment' i.id %}"><button  onclick="increment('root{{ i.id }}',{{i.menu_id.pizza_price}},{{i.id}})" class="cart-qty-plus" type="button" value="+">+</button></a>
+                                    </div>
+                                   
+                                </td>
+                                <td>
+                                    <input type="text" name="pizzaprice" value="{{i.menu_id.pizza_price}}" class="price form-control" disabled>
+                                </td>
+                                <td><a onclick="confirm( 'Are You sure You Want To Delete ??');" href="{% url 'pizza_delete_checkout' i.id %}"><button type="button" class="btn btn-warning">Delete</button></a></td>
+                                {% comment %} <td align="right">Rs.<span id="amount" class="amount" >{{i.menu_id.pizza_price}}</span></td> {% endcomment %}
+                                <td>₹ <span id="price{{i.id}}" id="item_price" name="price" class="amount" value = "{{i.total_price}}">{{i.total_price}}</span></td>  
+                            </tr>
+                           
+                        </tbody>
+                        {% endfor %}
+                        <tfoot>
+            
+                            <tr>
+                                <td colspan="5"></td>
+                                <td align="right"><strong>TOTAL = Rs. <span id="total{{i.id}}" name="netprice" value={{net_price}}>{{net_price}}</span></strong>
+                                </td>   
+                            </tr>
+                        </tfoot>
+                    </table>
+                   <button type="submit" class="btn btn-success cart"> checkout </button>
+                </form>
+               </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+    
+
+
+</html>

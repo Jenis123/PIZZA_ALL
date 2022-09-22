@@ -1,0 +1,77 @@
+{% load static %}
+			
+			<html>
+
+				<head>
+					<title>orders Page</title>
+					<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+						integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+					<link rel="stylesheet" href="/static/css/clientorder.css">
+					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+					
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+				</head>
+				
+				<body>
+					{% comment %} <nav class="navbar">
+						<a class="navbar-brand">Welcome {{cid.username}}</a>
+						<a href="{% url 'adminshoworder' %}" class="nav-item">all orders</a>
+						
+						<a class="btn btn-secondary" href="{% url 'logout' %}">logout</a>
+					</nav> {% endcomment %}
+					<nav class="navbar" style="background-color: lightblue;
+					opacity: 0.7;">
+						<a class="navbar-brand">Welcome {{cid.username}}</a>
+						
+						<p style="position: absolute; right: 15%; ">
+							<a href="{% url 'checkout' %}"   style="text-decoration: none; color: green;">
+							<i class="fa fa-shopping-cart fa-3x"></i>CART({{x}})
+							</a>
+						</p>
+						<a style="margin-left: 1300px;" class="btn btn-secondary" href="{% url 'myorder' %}">MyOrder</a>
+						<a class="btn btn-secondary" href="{% url 'logout' %}">logout</a>
+						
+					</nav>
+					<a href="#" style="text-decoration: none; font-size: 30px; font-weight: bold; color: black;margin-left: 900px;">All  Pizza</a>
+					<div class="container">
+						<div class="row g-0">
+							{% for i in menu_all %}
+							<div class="col-md-4" style="margin-top:200px">
+								<div class="img-h">
+									<div class="images">
+										<a href="images/4.jpg" class="galelry-lightbox">
+											<img src="{% static 'images/' %}{{i.pizza_image}}" alt="" class="img-fluid">
+										</a>
+										<p>{{i.pizza_name}}</p>
+										<p>₹ {{i.pizza_price}}</p>
+										
+									 <a href="{%  url 'add_to_cart' i.id %}"><button id= "pr{{i.id}}"class="btn btn-primary cart">Add To Cart</button></a>
+									</div>
+								</div>
+							</div>
+							{% endfor%}
+						</div>
+					</div>
+
+							
+							
+
+						
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	  crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+	  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+	  crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+	  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+	  crossorigin="anonymous"></script>
+
+				
+							
+							
+</body>
+				
+</html>
+			

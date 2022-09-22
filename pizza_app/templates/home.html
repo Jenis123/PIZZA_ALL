@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <center>
+        <center><h1>{{count.countnum}}</h1></center>
+        <a href="{% url 'increment' %}" ><button type="button" class="btn btn-success">Increment</button></a>
+        <a href="{% url 'reset' %}" ><button type="button" class="btn btn-warning">Reset</button></a>
+        <a href="{% url 'decrement' %}" ><button type="button" class="btn btn-danger">Decrement</button></a>
+        </center>
+
+        <a href="{% url 'logout' %}" ><button type="button" >log out</button></a>
+{% endblock %}
+

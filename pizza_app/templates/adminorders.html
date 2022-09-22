@@ -1,0 +1,139 @@
+{% load static %}
+<html>
+
+<head>
+	<title>Orders</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="{% static 'css/Adminorder.css' %}" rel="stylesheet">
+</head>
+
+<body><nav class="navbar" style="background-color: lightblue;
+	opacity: 0.7;">
+	<a    class="fa fa-home; btn btn-danger"  href="{% url 'adminhome' %}">Home</a>
+	<a style="margin-left: 900px;" class="btn btn-danger" href="{% url 'logout' %}">logout</a>
+		
+	</nav>
+	<div class="sec-title">
+	<h1 class="title">My Orders</h1>
+	</div>
+	<hr>
+	<div class="container">
+		<div class="row">
+			{% for i in  all_ord %}
+			<div class="col-md-4">
+				<div class="card" style="width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Order No :{{i.id}} </h5>
+						<hr>
+						<p class="card-text">Name :{{i.customer_id}}<br>
+							Mobile No :{{i.customer_id.mobile_no}}<br>
+							Address : ahmedabad</p>
+					</div>
+					<hr>
+					<div class="order">
+						<p>Pizza
+							Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Quantity</p>
+						<p>{{i.menu_id.pizza_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;
+							{{i.quantity}}</p>
+						<p>Total : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							₹ {{i.total_price}}</p>
+					</div>
+					<hr>
+				
+					{% if i.status == 'PENDING' %}
+							<div class="card-body">
+								<a href="/accept_order/{{i.id}}" style="display: inline;" class="btn btn-success">accept</a>
+								<a href="/reject_order/{{i.id}}" style="display: inline;" class="btn btn-danger">Decline</a>
+							</div>
+							{% elif i.status == 'Accepted' %}
+							<div class = "card-body">
+								<center><h3 style= color:green>Accepted</h3></center>
+							</div>
+							{% elif i.status == 'Rejected' %}
+							<div class ="card-body">
+								<center><h3 style = color:red>Rejected</h3></center>
+							</div>
+							{% endif %}
+				</div>
+			</div>
+			{% endfor %}
+			{% comment %} <div class="col-md-4">
+				<div class="card" style="width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Order No : 2</h5>
+						<hr>
+						<p class="card-text">Name : Ketul<br>
+							Mobile No : +91 123 456 7890<br>
+							Address : ahmedabad</p>
+					</div>
+					<hr>
+					<div class="order">
+						<p>Pizza
+							Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Quantity</p>
+						<p>italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;
+							1</p>
+						<p>7 cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;2</p>
+						<p>Total : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							₹ 1500</p>
+					</div>
+					<hr>
+					<div class="card-body">
+						<a href="#" style="display: inline;" class="btn btn-success">accept</a>
+						<a href="#" style="display: inline;" class="btn btn-danger">Decline</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card" style="width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Order No : 3</h5>
+						<hr>
+						<p class="card-text">Name : Ketul<br>
+							Mobile No : +91 123 456 7890<br>
+							Address : ahmedabad</p>
+					</div>
+					<hr>
+					<div class="order">
+						<p>Pizza
+							Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Quantity</p>
+						<p>italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;
+							1</p>
+						<p>7 cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;2</p>
+						<p>Total : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							₹ 1500</p>
+					</div>
+					<hr>
+					<div class="card-body">
+						<a href="#" style="display: inline;" class="btn btn-success">accept</a>
+						<a href="#" style="display: inline;" class="btn btn-danger">Decline</a>
+					</div>
+				</div>
+			</div>
+	 {% endcomment %}
+		</div>
+	</div>
+
+
+</body>
+
+</html>

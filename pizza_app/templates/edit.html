@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+
+<head>
+	<title>Edit Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
+</head>
+
+<body>
+	
+
+
+
+	
+
+	
+
+	<center>
+			
+			<form method="POST" action="{% url 'edit_pizza' edit_pizza.id %}" enctype="multipart/form-data">
+			{% csrf_token %}
+				<div class="container">
+					<label>Select File
+						<input type="file" size="60" name="pizza_pic" value="{{edit_pizza.pizza_image}}">
+					</label>
+					<input type="text" placeholder="Pizza-name" name="pizzaname" value="{{edit_pizza.pizza_name}}" style="color: #000;">
+					<input type="text" placeholder="Price" name="pizzaprice" value="{{edit_pizza.pizza_price}}" style="color: #000;">
+					<input type="submit" value="update" class="submit-button">
+				</div>
+			</form>
+			<br>
+			<br>
+		
+		</div>
+	</center>
+	
+
+
+
+	<script>
+		$ = function (id) {
+			return document.getElementById(id);
+		}
+
+		var show = function (id) {
+			$(id).style.display = 'block';
+		}
+		var hide = function (id) {
+			$(id).style.display = 'none';
+		}
+	</script>
+</body>
+
+</html>

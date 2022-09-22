@@ -1,0 +1,89 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>chekout</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/chekout.css' %}">
+</head>
+
+<body>
+  
+    <nav class="navbar" style="background-color: lightblue;
+					opacity: 0.7;">
+	
+			<a  class="btn btn-danger" href="{% url 'customer_wlc' %}">Home</a>
+            <a style="margin-left: 900px;" class="btn btn-danger" href="{% url 'logout' %}">logout</a>
+						
+	</nav>
+    <div class="container-fluid mt-5">
+       
+        <h2 class="mb-5 text-center" style="font-size: 45px; font-weight: 700;"> My Order</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                
+                                <th>Name</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th class="text-right"><span id="amount" class="amount">Amount</span> </th>
+                            </tr>
+                        </thead>
+                        {% for i in myord %}
+                        <tbody>
+                           
+                            <tr>
+                                
+                                <td>
+                                    <p>{{i.menu_id.pizza_name}}</p>
+                                </td>
+                                <td>
+                                    <div class="button-container">
+                                        <input type="text" min="1" name="qty" id = "root{{ i.id }}" value="{{i.quantity}}" class="qty form-control" value="1"  disabled/>
+                                    </div>
+                                   
+                                </td>
+                                <td>
+                                    <input type="text" value="{{i.menu_id.pizza_price}}" class="price form-control" disabled>
+                                </td> 
+                                {% if i.status == 'PENDING' %}
+                                    <td><button type="text" class="btn btn-warning">PENDING</button></a></td>
+                                {% elif i.status == 'Accepted' %}
+                                    <td><button type="text" class="btn btn-success">Accepted</button></a></td>
+                                {% elif i.status == 'Rejected' %}
+                                    <td><button type="text" class="btn btn-danger">Rejected</button></a></td>
+                                {% endif %}
+                                <td>₹ <span id="price{{i.id}}" id="item_price" class="amount" value = "{{i.total_price}}">{{i.total_price}}</span></td>  
+                            </tr>
+                               
+                        </tbody>
+                        {% endfor %}
+                        <tfoot>
+            
+                            <tr>
+                                <td colspan="5"></td>
+                                <td align="right"><strong>TOTAL = Rs. <span id="total{{i.id}}" value={{total}}>{{total}}</span></strong>
+                                </td>   
+                            </tr>
+                        </tfoot>
+                    </table>
+                    {% comment %} <a style="margin-left: 600px;" class="btn btn-success" href="{% url 'order' %}"> checkout</a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+    
+
+
+</html>
